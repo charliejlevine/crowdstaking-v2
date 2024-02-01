@@ -9,6 +9,12 @@ import {
 import { createConfig, WagmiProvider } from "wagmi";
 import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
+import {
+  injectedWallet,
+  rainbowWallet,
+  walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
+
 import { getConfig } from "./config/getConfig";
 
 const NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID =
@@ -47,8 +53,9 @@ const connectors = connectorsForWallets(
     {
       groupName: "Wallets",
       wallets: [
-        // ...wallets,
-        // injected,
+        injectedWallet,
+        rainbowWallet,
+        walletConnectWallet,
         // coinbaseWallet({ appName: "Create Wagmi" }),
         // walletConnect({
         //   projectId: NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
