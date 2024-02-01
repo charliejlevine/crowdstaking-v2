@@ -1,57 +1,57 @@
-import {
-  type ReactNode,
-  createContext,
-  useContext,
-  useReducer,
-  useMemo,
-} from "react";
-import {
-  TTransactionsDispatch,
-  TTransactionsState,
-  TransactionsReducer,
-} from "./TransactionsReducer";
-import { TransactionWatcher } from "./TransactionsWatcher";
+// import {
+//   type ReactNode,
+//   createContext,
+//   useContext,
+//   useReducer,
+//   useMemo,
+// } from "react";
+// import {
+//   TTransactionsDispatch,
+//   TTransactionsState,
+//   TransactionsReducer,
+// } from "./TransactionsReducer";
+// import { TransactionWatcher } from "./TransactionsWatcher";
 
-const TransactionsContext = createContext<
-  | {
-      transactionsState: TTransactionsState;
-      transactionsDispatch: TTransactionsDispatch;
-    }
-  | undefined
->(undefined);
+// const TransactionsContext = createContext<
+//   | {
+//       transactionsState: TTransactionsState;
+//       transactionsDispatch: TTransactionsDispatch;
+//     }
+//   | undefined
+// >(undefined);
 
-function TransactionsProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(TransactionsReducer, []);
+// function TransactionsProvider({ children }: { children: ReactNode }) {
+//   const [state, dispatch] = useReducer(TransactionsReducer, []);
 
-  const value = useMemo(
-    () => ({ transactionsState: state, transactionsDispatch: dispatch }),
-    [state, dispatch]
-  );
+//   const value = useMemo(
+//     () => ({ transactionsState: state, transactionsDispatch: dispatch }),
+//     [state, dispatch]
+//   );
 
-  return (
-    <TransactionsContext.Provider value={value}>
-      {value.transactionsState.map((transaction) =>
-        transaction.status === "SUBMITTED" ? (
-          <TransactionWatcher
-            key={`watching_transaction_${transaction.id}`}
-            transaction={transaction}
-            transactionsDispatch={value.transactionsDispatch}
-          />
-        ) : null
-      )}
-      {children}
-    </TransactionsContext.Provider>
-  );
-}
+//   return (
+//     <TransactionsContext.Provider value={value}>
+//       {value.transactionsState.map((transaction) =>
+//         transaction.status === "SUBMITTED" ? (
+//           <TransactionWatcher
+//             key={`watching_transaction_${transaction.id}`}
+//             transaction={transaction}
+//             transactionsDispatch={value.transactionsDispatch}
+//           />
+//         ) : null
+//       )}
+//       {children}
+//     </TransactionsContext.Provider>
+//   );
+// }
 
-const useTransactions = () => {
-  const context = useContext(TransactionsContext);
-  if (context === undefined) {
-    throw new Error(
-      "useTransactions must be used within a TransactionsProvider"
-    );
-  }
-  return context;
-};
+// const useTransactions = () => {
+//   const context = useContext(TransactionsContext);
+//   if (context === undefined) {
+//     throw new Error(
+//       "useTransactions must be used within a TransactionsProvider"
+//     );
+//   }
+//   return context;
+// };
 
-export { TransactionsProvider, useTransactions };
+// export { TransactionsProvider, useTransactions };
