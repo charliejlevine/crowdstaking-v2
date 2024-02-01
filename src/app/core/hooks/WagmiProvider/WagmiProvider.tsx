@@ -1,10 +1,22 @@
 import type { ReactNode } from "react";
-import { WagmiConfig } from "wagmi";
-import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  RainbowKitProvider,
+  connectorsForWallets,
+  darkTheme,
+  getDefaultWallets,
+} from "@rainbow-me/rainbowkit";
+import { createConfig, WagmiProvider } from "wagmi";
+import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
 import { getConfig } from "./config/getConfig";
 
-const { chains, config } = getConfig();
+const NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID =
+  process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID;
+if (!NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID)
+  throw new Error("NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID not set!");
+
+const appName = "Breadchain Crowdstaking";
 
 const baseTheme = darkTheme({
   accentColor: "#E873D3",
@@ -25,12 +37,55 @@ const theme = {
   },
 };
 
-export function WagmiProvider({ children }: { children: ReactNode }) {
+const { wallets } = getDefaultWallets({
+  appName,
+  projectId: NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+});
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: "Wallets",
+      wallets: [
+        // ...wallets,
+        // injected,
+        // coinbaseWallet({ appName: "Create Wagmi" }),
+        // walletConnect({
+        //   projectId: NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+        // }),
+      ],
+    },
+  ],
+  {
+    appName,
+    projectId: NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+  }
+);
+
+const { chains, transports } = getConfig();
+
+export const config = createConfig({
+  connectors,
+  chains,
+  transports,
+});
+
+const queryClient = new QueryClient();
+
+export function RainbowProvider({ children }: { children: ReactNode }) {
   return (
-    <WagmiConfig config={config}>
-      <RainbowKitProvider modalSize="compact" theme={theme} chains={chains}>
-        {children}
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider modalSize="compact" theme={theme}>
+          {children}
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
+}
+
+declare module "wagmi" {
+  interface Register {
+    config: typeof config;
+  }
 }

@@ -1,7 +1,7 @@
 "use client";
 import "./app.css";
 import Header from "@/app/core/components/Header";
-import { WagmiProvider } from "@/app/core/hooks/WagmiProvider/WagmiProvider";
+import { RainbowProvider } from "@/app/core/hooks/WagmiProvider/WagmiProvider";
 import { TokenBalancesProvider } from "@/app/core/context/TokenBalanceContext/TokenBalanceContext";
 import { ConnectedUserProvider } from "@/app/core/hooks/useConnectedUser";
 import { AnimatePresence } from "framer-motion";
@@ -18,17 +18,17 @@ export default function App({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={clsx("relative", pressStart.variable, redhat.variable)}>
-        <WagmiProvider>
+        <RainbowProvider>
           <ConnectedUserProvider>
-            <TokenBalancesProvider>
-              <ToastProvider>
-                <TransactionsProvider>
-                  <Layout>{children}</Layout>
-                </TransactionsProvider>
-              </ToastProvider>
-            </TokenBalancesProvider>
+            {/* <TokenBalancesProvider> */}
+            {/* <ToastProvider> */}
+            {/* <TransactionsProvider> */}
+            <Layout>{children}</Layout>
+            {/* </TransactionsProvider> */}
+            {/* </ToastProvider> */}
+            {/* </TokenBalancesProvider> */}
           </ConnectedUserProvider>
-        </WagmiProvider>
+        </RainbowProvider>
       </body>
     </html>
   );

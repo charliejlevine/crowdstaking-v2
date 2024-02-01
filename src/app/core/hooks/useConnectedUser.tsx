@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { type Chain, useAccount, useNetwork } from "wagmi";
+import { useAccount } from "wagmi";
 import config, { type ChainConfiguration } from "@/chainConfig";
 
 export type TUserLoading = { status: "LOADING" };
@@ -15,12 +15,12 @@ export type TUserConnected = {
   status: "CONNECTED";
   address: `0x${string}`;
   config: ChainConfiguration;
-  chain: Chain;
+  // chain: Chain;
 };
 export type TUnsupportedChain = {
   status: "UNSUPPORTED_CHAIN";
   address: `0x${string}`;
-  chain: Chain;
+  // chain: Chain;
 };
 
 export type TConnectedUserState =
