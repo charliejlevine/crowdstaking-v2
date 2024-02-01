@@ -10,9 +10,9 @@ import { sanitizeInputValue } from "../swapUtils";
 import { useConnectedUser } from "@/app/core/hooks/useConnectedUser";
 import Button from "@/app/core/components/Button";
 import { AccountMenu } from "@/app/core/components/Header/AccountMenu";
-import Bake from "./Bake";
+// import Bake from "./Bake";
 import { useTokenBalances } from "@/app/core/context/TokenBalanceContext/TokenBalanceContext";
-import Burn from "./Burn";
+// import Burn from "./Burn";
 import { Address } from "viem";
 import { InsufficentBalance } from "./InsufficentBalance";
 
@@ -130,20 +130,20 @@ export function Swap() {
                   parseFloat(swapState.value || "0") <=
                   parseFloat(sourceToken.value);
 
-                if (balanceIsSufficent)
-                  return swapState.mode === "BAKE" ? (
-                    <Bake
-                      user={user}
-                      clearInputValue={clearInputValue}
-                      inputValue={swapState.value}
-                    />
-                  ) : (
-                    <Burn
-                      user={user}
-                      clearInputValue={clearInputValue}
-                      inputValue={swapState.value}
-                    />
-                  );
+                // if (balanceIsSufficent)
+                //   return swapState.mode === "BAKE" ? (
+                //     <Bake
+                //       user={user}
+                //       clearInputValue={clearInputValue}
+                //       inputValue={swapState.value}
+                //     />
+                //   ) : (
+                //     <Burn
+                //       user={user}
+                //       clearInputValue={clearInputValue}
+                //       inputValue={swapState.value}
+                //     />
+                //   );
 
                 return <InsufficentBalance />;
             }

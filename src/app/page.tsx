@@ -1,12 +1,12 @@
 "use client";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { Toaster } from "./core/components/Toaster/Toaster";
+// import { Toaster } from "./core/components/Toaster/Toaster";
 import { AppTitle } from "./bakery/components/AppTitle";
 
-const Swap = dynamic(() => import("./bakery/components/Swap/Swap"), {
-  ssr: false,
-});
+// const Swap = dynamic(() => import("./bakery/components/Swap/Swap"), {
+//   ssr: false,
+// });
 
 const FAQ = dynamic(() => import("./bakery/components/FAQ"), {
   ssr: false,
@@ -18,7 +18,7 @@ export default function Home() {
       {/* <Toaster /> */}
       <AppTitle />
       <Suspense>
-        <Swap />
+        {/* <Swap /> */}
         <FAQ />
       </Suspense>
     </main>

@@ -2,7 +2,7 @@
 import "./app.css";
 import Header from "@/app/core/components/Header";
 import { RainbowProvider } from "@/app/core/hooks/WagmiProvider/WagmiProvider";
-import { TokenBalancesProvider } from "@/app/core/context/TokenBalanceContext/TokenBalanceContext";
+// import { TokenBalancesProvider } from "@/app/core/context/TokenBalanceContext/TokenBalanceContext";
 import { ConnectedUserProvider } from "@/app/core/hooks/useConnectedUser";
 import { AnimatePresence } from "framer-motion";
 import Footer from "@/app/core/components/Footer";
@@ -11,8 +11,8 @@ import clsx from "clsx";
 import { pressStart, redhat } from "@/app/core/components/Fonts";
 
 import "@rainbow-me/rainbowkit/styles.css";
-import { TransactionsProvider } from "@/app/core/context/TransactionsContext/TransactionsContext";
-import { ToastProvider } from "@/app/core/context/ToastContext/ToastContext";
+// import { TransactionsProvider } from "@/app/core/context/TransactionsContext/TransactionsContext";
+// import { ToastProvider } from "@/app/core/context/ToastContext/ToastContext";
 
 export default function App({ children }: { children: React.ReactNode }) {
   return (
