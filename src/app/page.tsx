@@ -15,7 +15,7 @@ const FAQ = dynamic(() => import("./bakery/components/FAQ"), {
 export default function Home() {
   return (
     <main className="grow relative">
-      <Toaster />
+      {/* <Toaster /> */}
       <AppTitle />
       <Suspense>
         <Swap />

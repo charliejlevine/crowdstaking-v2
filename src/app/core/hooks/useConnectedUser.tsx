@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 import { useAccount } from "wagmi";
+import type { Chain } from "viem";
+
 import config, { type ChainConfiguration } from "@/chainConfig";
 
 export type TUserLoading = { status: "LOADING" };
@@ -15,12 +17,12 @@ export type TUserConnected = {
   status: "CONNECTED";
   address: `0x${string}`;
   config: ChainConfiguration;
-  // chain: Chain;
+  chain: Chain;
 };
 export type TUnsupportedChain = {
   status: "UNSUPPORTED_CHAIN";
   address: `0x${string}`;
-  // chain: Chain;
+  chain: Chain;
 };
 
 export type TConnectedUserState =
@@ -44,10 +46,18 @@ function ConnectedUserProvider({ children }: IConnectedUserProviderProps) {
     connector: activeConnector,
     address: accountAddress,
     status,
+    chain: activeChain,
   } = useAccount();
-  const { chain: activeChain } = useNetwork();
 
   useEffect(() => {
+    /*
+      TODO
+
+      Here configuration can be null if the user isn't connected to a supported chain, or if there is some sort of problem getting the config for a supported chain.
+
+      We need to catch when it is a problem in app code rather than justs a user being connected to an unsupported chain.
+    */
+
     const configuration =
       activeChain?.id && config[activeChain.id] ? config[activeChain.id] : null;
 
