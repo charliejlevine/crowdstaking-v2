@@ -5,6 +5,7 @@ import { getConfig } from "@/chainConfig";
 import { PageGrid } from "@/app/governance/components/PageGrid";
 import { VotingPowerPanel } from "@/app/governance/boosters/components/VotingPowerPanel";
 import { BoosterCard } from "@/app/governance/boosters/components/BoosterCard";
+import { boostData } from "@/app/governance/boosters/data/BoostData";
 
 export function BoosterPage() {
   const { user } = useConnectedUser();
@@ -22,16 +23,9 @@ export function BoosterPage() {
       </PageGrid>
       <div className="w-full pt-6">
         <h2 className="font-bold text-xl">All boosters?</h2>
-        <BoosterCard 
-          iconName="NAME"
-          boosterName="Flowers" 
-          verified={true}
-          boostAmmount="x1.2" 
-          boostAmmountSubtitle="Woah, that's lots" 
-          description="Buy me flowers, get a boost." 
-          expiration={89}
-          experationUrgent={false}
-        />
+        <div className="grid md:grid-cols-3 md:gap-4">
+          {BoosterList()}
+        </div>
       </div>
     </section>
   );
@@ -51,5 +45,29 @@ function TitleSection() {
         </p>
       </div>
     </div>
+  );
+}
+
+function BoosterList() {
+  return (
+      boostData.map((boost, index) => {
+        const now = new Date();
+        const timeDifference = boost.expiration.getTime() - now.getTime();
+        const daysUntilExpiration = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+        return (
+          <BoosterCard
+            key={index}
+            iconName={boost.iconName}
+            boosterName={boost.boosterName}
+            verified={boost.verified}
+            boostAmmount={boost.boostAmmount}
+            boostAmmountSubtitle={boost.boostAmmountSubtitle}
+            description={boost.description}
+            expiration={daysUntilExpiration}
+            expirationUrgent={boost.expirationUrgent}
+          />
+        );
+      })
   );
 }

@@ -10,7 +10,7 @@ export function BoosterCard({
     boostAmmountSubtitle,
     description,
     expiration,
-    experationUrgent = false,
+    expirationUrgent = false,
 }:{
     iconName: string;
     boosterName: string;
@@ -19,20 +19,20 @@ export function BoosterCard({
     boostAmmountSubtitle: string;
     description: string;
     expiration: number | undefined;
-    experationUrgent: boolean;
+    expirationUrgent: boolean;
 }) {
     return(
-        <div>
+        <div className="w-full">
             <span>{boosterName}</span>
             {getIcon(iconName)}
             {verified ? "Yay, you did it" : "DO IT FOR POWER"}
-            <div>
+            <div className="mt-2 flex justify-between">
                 <span>{boostAmmount}</span>
                 <span>{boostAmmountSubtitle}</span>
             </div>
             <p>{description}</p>
             {viewButton(verified)}
-            {expiry(expiration, experationUrgent)}
+            {expiry(expiration, expirationUrgent)}
         </div>
     )
 }
