@@ -4,6 +4,7 @@ import { useConnectedUser } from "@/app/core/hooks/useConnectedUser";
 import { getConfig } from "@/chainConfig";
 import { PageGrid } from "@/app/governance/components/PageGrid";
 import { VotingPowerPanel } from "@/app/governance/boosters/components/VotingPowerPanel";
+import { BoosterCard } from "@/app/governance/boosters/components/BoosterCard";
 
 export function BoosterPage() {
   const { user } = useConnectedUser();
@@ -17,11 +18,20 @@ export function BoosterPage() {
         <div className="col-span-12 lg:col-span-8 row-start-1 row-span-1">
           <TitleSection />
         </div>
-
         <VotingPowerPanel />
       </PageGrid>
       <div className="w-full pt-6">
-        <h2 className="font-bold text-xl">All boosters</h2>
+        <h2 className="font-bold text-xl">All boosters?</h2>
+        <BoosterCard 
+          iconName="NAME"
+          boosterName="Flowers" 
+          verified={true}
+          boostAmmount="x1.2" 
+          boostAmmountSubtitle="Woah, that's lots" 
+          description="Buy me flowers, get a boost." 
+          expiration={89}
+          experationUrgent={false}
+        />
       </div>
     </section>
   );
