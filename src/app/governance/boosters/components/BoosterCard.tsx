@@ -31,12 +31,12 @@ export function BoosterCard({
             text-breadgray-rye
             dark:text-breadgray-grey
             ">
-            <div className="flex items-center w-full">
-                <div className="flex space-x-4">
+            <div className="flex items-center w-full justify-between">
+                <div className="flex items-center space-x-3">
                     {getIcon(iconName)}
-                    <span className="uppercase">{boosterName}</span>
+                    <span className="uppercase text-[20px] shrink-[5]">{boosterName}</span>
                 </div>
-                <div className="bg-red-500 ml-auto">
+                <div className="bg-red-500 ml-auto ml-[12px]">
                     {verified ? "Verified" : "Unverified" }
                 </div>
             </div>
