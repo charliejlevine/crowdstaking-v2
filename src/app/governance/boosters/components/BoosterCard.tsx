@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { XDAIIcon } from "@/app/core/components/Icons/TokenIcons"; // Temporary for testing purposes
-import Button from "@/app/core/components/Button/Button"
+import { CheckIcon } from "@/app/core/components/Icons/CheckIcon";
 import Tooltip from "@/app/core/components/Tooltip";
 
 export function BoosterCard({
@@ -32,9 +32,9 @@ export function BoosterCard({
             ">
             {header(iconName, boosterName, verified)}
             {boostPowerSection(boostAmmount, boostAmmountSubtitle)}
-            <p className="py-[24px]" >{description}</p>
+            <p className="my-[24px]" >{description}</p>
             {viewButton(verified)}
-            {expiry(expiration, expirationUrgent)}
+            {expiry(expiration, expirationUrgent, "Helpful information loading")}
         </div>
     )
 }
@@ -89,7 +89,7 @@ function boostPowerSection(ammount: string, subtitle: string): ReactElement {
             <p className="font-bold text-[30px] bread-pink-text-gradient">{ammount}</p>
             <div className="flex items-center gap-2">
                 <p className="block text-[16px] pb-[5px]">{subtitle}</p>
-                <Tooltip>YO, wassup dog</Tooltip>
+                <Tooltip>Helpful information loading...</Tooltip>
             </div>
         </div>
     )
@@ -100,19 +100,50 @@ function getIcon(iconName: string): ReactElement {
 }
 
 function viewButton(verified: boolean): ReactElement {
-    if (verified) {
-        return <Button onClick={() => alert("Oh YEAH! VIP")}>Verified View</Button>
-    } else {
-        return <Button onClick={() => alert("Oh you're interested are ya?")}>View</Button>
-    }
-}
+    const buttonStyles = verified
+      ? "bg-[rgba(152,151,151,0.1)] dark:bg-breadgray-charcoal text-status-success" // Verified
+      : "bg-[#FFCCF1] dark:bg-[#402639] text-breadviolet-violet dark:text-breadpink-shaded"; // Not verified
+  
+    const handleClick = () => {
+      alert(verified ? "Oh YEAH! VIP" : "Oh you're interested are ya?");
+    };
+  
+    return (
+      <button
+        onClick={handleClick}
+        className={`
+          w-full h-[50px] mb-[10px] rounded-[10px]
+          flex items-center justify-center
+          ${buttonStyles}
+        `}
+      >
+        {verified ? (
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-[20px] text-status-success"><CheckIcon /></div>
+            <span className="font-semibold text-[20px]">Verified</span>
+            <span className="font-normal text-[16px] dark:text-breadpink-shaded">view</span>
+          </div>
+        ) : (
+          <span className="font-semibold text-[20px]">View</span>
+        )}
+      </button>
+    );
+  }
+  
 
 function expiry(
     expiration: number | undefined, 
-    expirationUrgent: boolean
+    expirationUrgent: boolean,
+    tooltipContent: string
 ): ReactElement | undefined {
     if (!expiration) {
         return undefined
     }
-    return <span>{expiration} days until expiration {expirationUrgent ? "URGENT" : ""}</span>
+    const textColorClass = expirationUrgent ? "text-[#F2D54E]" : "text-breadgray-grey"
+    return (
+        <div className="flex flex-row items-center justify-center">
+            <span className={`${textColorClass} leading-none mb-[6px] mr-[6px]`}>{expiration} days until booster expires</span>
+            <Tooltip>Boo</Tooltip>
+        </div>
+    )
 }
