@@ -32,7 +32,7 @@ export function BoosterCard({
             ">
             {header(iconName, boosterName, verified)}
             {boostPowerSection(boostAmmount, boostAmmountSubtitle)}
-            <p>{description}</p>
+            <p className="py-[24px]" >{description}</p>
             {viewButton(verified)}
             {expiry(expiration, expirationUrgent)}
         </div>
@@ -46,7 +46,7 @@ function header(iconName: string, boosterName: string, verified: boolean): React
                 {getIcon(iconName)}
                 <span className="
                     shrink-[5]
-                    text-[20px] uppercase font-medium
+                    text-[20px] uppercase font-medium leading-none
                     text-breadgray-rye dark:text-breadgray-grey 
                     ">
                     {boosterName}
