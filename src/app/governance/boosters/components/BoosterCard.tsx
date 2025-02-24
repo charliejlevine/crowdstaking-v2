@@ -28,23 +28,45 @@ export function BoosterCard({
             rounded-[15px] p-[20px]
             border border-breadgray-light-grey dark:border-breadgray-burnt 
             bg-breadgray-ultra-white dark:bg-breadgray-grey200
-            text-breadgray-rye
-            dark:text-breadgray-grey
+            text-breadgray-rye dark:text-breadgray-grey
             ">
-            <div className="flex items-center w-full justify-between">
-                <div className="flex items-center space-x-3">
-                    {getIcon(iconName)}
-                    <span className="uppercase text-[20px] shrink-[5]">{boosterName}</span>
-                </div>
-                <div className="bg-red-500 ml-auto ml-[12px]">
-                    {verified ? "Verified" : "Unverified" }
-                </div>
-            </div>
-            
+            {header(iconName, boosterName, verified)}
             {boostPowerSection(boostAmmount, boostAmmountSubtitle)}
             <p>{description}</p>
             {viewButton(verified)}
             {expiry(expiration, expirationUrgent)}
+        </div>
+    )
+}
+
+function header(iconName: string, boosterName: string, verified: boolean): ReactElement {
+    return(
+        <div className="flex items-center w-full justify-between pb-6">
+            <div className="flex items-center space-x-3">
+                {getIcon(iconName)}
+                <span className="
+                    shrink-[5]
+                    text-[20px] uppercase font-medium
+                    text-breadgray-rye dark:text-breadgray-grey 
+                    ">
+                    {boosterName}
+                </span>
+            </div>
+            {verifiedBadge(verified)}
+        </div>
+    )
+}
+
+function verifiedBadge(verified: boolean): ReactElement {
+    const colorClass = verified ? "text-status-success bg-status-success/10" : "bg-[rgba(152,151,151,0.1)]"
+    return (
+        <div className={`
+            leading-none 
+            ml-[12px] py-[4px] px-[6px] rounded-full 
+            text-[12px] font-semibold 
+            ${colorClass}
+            `}>
+            {verified ? "Verified" : "Unverified" }
         </div>
     )
 }
