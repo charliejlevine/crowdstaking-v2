@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
-import { XDAIIcon } from "@/app/core/components/Icons/TokenIcons"; // Temporary for testing purposes
 import { CheckIcon } from "@/app/core/components/Icons/CheckIcon";
 import Tooltip from "@/app/core/components/Tooltip";
+import BoosterIcon, { IconName } from "@/app/governance/boosters/components/BoosterIcon";
 
 export function BoosterCard({
     iconName,
@@ -34,14 +34,14 @@ export function BoosterCard({
             {boostPowerSection(boostAmmount, boostAmmountSubtitle)}
             <p className="my-[24px]" >{description}</p>
             {viewButton(verified)}
-            {expiry(expiration, expirationUrgent, "Helpful information loading")}
+            {expiry(expiration, expirationUrgent, "Helpful information loading...")}
         </div>
     )
 }
 
 function header(iconName: string, boosterName: string, verified: boolean): ReactElement {
     return(
-        <div className="flex items-center w-full justify-between pb-6">
+        <div className="w-full pb-6 flex items-center justify-between">
             <div className="flex items-center space-x-3">
                 {getIcon(iconName)}
                 <span className="
@@ -86,8 +86,8 @@ function boostPowerSection(ammount: string, subtitle: string): ReactElement {
                 ">
                 {/* This element simply adds the gradient. It has opacity and layers ontop of the solid background */}
             </div>
-            <p className="font-bold text-[30px] bread-pink-text-gradient">{ammount}</p>
-            <div className="flex items-center gap-2">
+            <p className="font-bold text-[30px] bread-pink-text-gradient z-0">{ammount}</p>
+            <div className="flex items-center gap-2 z-30">
                 <p className="block text-[16px] pb-[5px]">{subtitle}</p>
                 <Tooltip>Helpful information loading...</Tooltip>
             </div>
@@ -96,7 +96,10 @@ function boostPowerSection(ammount: string, subtitle: string): ReactElement {
 }
 
 function getIcon(iconName: string): ReactElement {
-    return <XDAIIcon />
+    // To be updated once we have actual icons
+    const iconNames = Object.values(IconName);
+    const randomIconName = iconNames[Math.floor(Math.random() * iconNames.length)] as IconName
+    return <BoosterIcon name={randomIconName} className="flex-shrink-0 bg-breadgray-charcoal"></BoosterIcon>
 }
 
 function viewButton(verified: boolean): ReactElement {
@@ -141,9 +144,9 @@ function expiry(
     }
     const textColorClass = expirationUrgent ? "text-[#F2D54E]" : "text-breadgray-grey"
     return (
-        <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center mb-[-6px]">
             <span className={`${textColorClass} leading-none mb-[6px] mr-[6px]`}>{expiration} days until booster expires</span>
-            <Tooltip>Boo</Tooltip>
+            <Tooltip>{tooltipContent}</Tooltip>
         </div>
     )
 }
