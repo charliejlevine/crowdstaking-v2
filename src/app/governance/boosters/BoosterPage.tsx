@@ -23,7 +23,7 @@ export function BoosterPage() {
       </PageGrid>
       <div className="w-full pt-6">
         <h2 className="font-bold text-xl">All boosters?</h2>
-        <div className="grid md:grid-cols-3 md:gap-4 items-start">
+        <div className="grid md:grid-cols-3 gap-4 items-start">
           {BoosterList()}
         </div>
       </div>
