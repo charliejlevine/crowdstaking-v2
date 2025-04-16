@@ -46,6 +46,7 @@ export default function Bake({
     abi: BREAD_ABI,
     functionName: "mint",
     args: [user.address],
+    account: user.address,
     value: parsedValue,
     query: {
       enabled: parseFloat(debouncedValue) > 0,
